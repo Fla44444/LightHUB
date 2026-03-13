@@ -3,31 +3,17 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 local Window = Rayfield:CreateWindow({
    Name = "Light Hub | Steal a Brainrot",
    LoadingTitle = "Light Hub",
-   LoadingSubtitle = "by FlaweR",
+   LoadingSubtitle = "Made by FlaweR",
    ConfigurationSaving = {
-      Enabled = false, -- Config kaydetmeyi kapattım ki hızlı açılsın
-      FolderName = nil,
-      FileName = "LightHub"
+      Enabled = false
    },
    Discord = {
-      Enabled = false, -- Discord davet uyarısını kapattım
-      Invite = "",
-      RememberJoins = true
+      Enabled = false -- Gereksiz her şeyi kapattık
    },
-   KeySystem = false, -- Key sistemiyle uğraştırmaz
-   -- İŞTE BURASI: Yükleme ekranını yok eden kısım
-   ConfigurationSaving = {
-      Enabled = false
-   },
-   KeySettings = {
-      Enabled = false
-   }
+   KeySystem = false
 })
 
--- NOT: Rayfield'ın bazı sürümlerinde loading ekranı kütüphane içinden zorunludur.
--- Eğer hala çıkıyorsa, en hızlı hale getirmek için LoadingTitle ve Subtitle'ı boş bıraktım.
-
--- 1. OTOMASYON SEKMESİ (Kaydırılabilir)
+-- OTOMASYON SEKMESİ
 local AutomationTab = Window:CreateTab("Otomasyon", 4483362458)
 
 AutomationTab:CreateToggle({
@@ -88,7 +74,7 @@ AutomationTab:CreateToggle({
    Callback = function(Value) end,
 })
 
--- DİĞER SEKMELER (Hızlı Erişim)
+-- KARAKTER & DİĞER SEKMELER (Dolu olması için)
 local PlayerTab = Window:CreateTab("Karakter", 4483362458)
 PlayerTab:CreateSlider({
    Name = "Hız",
@@ -102,7 +88,7 @@ local VisualsTab = Window:CreateTab("Görsel", 4483362458)
 VisualsTab:CreateToggle({Name = "FullBright", CurrentValue = false, Callback = function(V) end})
 
 local Settings = Window:CreateTab("Ayarlar", 4483362458)
-Settings:CreateLabel("Made by FlaweR")
+Settings:CreateLabel("Owner: FlaweR")
 Settings:CreateKeybind({
    Name = "Menü Kapat/Aç",
    CurrentKeybind = "RightShift",
@@ -110,9 +96,10 @@ Settings:CreateKeybind({
    Callback = function() end,
 })
 
--- Açılışta sadece ufak bir bildirim (Boru gibi ekran yerine)
+-- O sağ alttaki Rayfield yazısını unutturacak şık bir açılış mesajı
 Rayfield:Notify({
-   Title = "Light Hub Aktif",
-   Content = "Hoş geldin FlaweR, sistem saniyeler içinde hazır!",
-   Duration = 2,
+   Title = "Sistem Hazır",
+   Content = "Light Hub | Developed by FlaweR",
+   Duration = 3,
+   Image = 4483362458,
 })
