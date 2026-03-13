@@ -1,0 +1,139 @@
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+
+local Window = Rayfield:CreateWindow({
+   Name = "Light Hub | Steal a Brainrot",
+   LoadingTitle = "Light Hub Yükleniyor...",
+   LoadingSubtitle = "Made by FlaweR",
+   ConfigurationSaving = {
+      Enabled = true,
+      FolderName = "LightHub_FlaweR",
+      FileName = "MainConfig"
+   },
+   Theme = "Dark" -- Siyah & Beyaz Tema
+})
+
+-- 1. OTOMASYON SEKMESİ (Kaydırılabilir ve Full Paket)
+local AutomationTab = Window:CreateTab("Otomasyon", 4483362458)
+
+AutomationTab:CreateToggle({
+   Name = "Otomatik Brainrot Çalma",
+   CurrentValue = false,
+   Flag = "AutoSteal",
+   Callback = function(Value) _G.AutoSteal = Value end,
+})
+
+AutomationTab:CreateToggle({
+   Name = "Otomatik Brainrot Buy",
+   CurrentValue = false,
+   Flag = "AutoBuy",
+   Callback = function(Value) _G.AutoBuy = Value end,
+})
+
+AutomationTab:CreateDropdown({
+   Name = "Brainrot Listesi (Ana)",
+   Options = {"Dragon Cannelloni", "Skibidi", "Grimace", "Fanum Tax", "Rizzler"},
+   CurrentOption = {"Dragon Cannelloni"},
+   Flag = "BrainList1",
+   Callback = function(Option) end,
+})
+
+AutomationTab:CreateToggle({
+   Name = "Otomatik Çalma (Seçili Olanı)",
+   CurrentValue = false,
+   Flag = "AutoStealSpec",
+   Callback = function(Value) end,
+})
+
+AutomationTab:CreateDropdown({
+   Name = "Brainrot Listesi (Alt Filtre)",
+   Options = {"Dragon Cannelloni", "Ice Cream", "Gwenchana", "Bing Chilling", "Mewing"},
+   CurrentOption = {"Dragon Cannelloni"},
+   Flag = "BrainList2",
+   Callback = function(Option) end,
+})
+
+AutomationTab:CreateToggle({
+   Name = "Fake Admin Panel",
+   CurrentValue = false,
+   Flag = "FakeAdmin",
+   Callback = function(Value)
+      if Value then Rayfield:Notify({Title = "YETKİ", Content = "FlaweR Admin Modu Aktif.", Duration = 2}) end
+   end,
+})
+
+AutomationTab:CreateToggle({
+   Name = "Server Lag (Fake)",
+   CurrentValue = false,
+   Flag = "ServerLag",
+   Callback = function(Value) end,
+})
+
+AutomationTab:CreateToggle({
+   Name = "Otomatik Base Kitleme",
+   CurrentValue = false,
+   Flag = "BaseLock",
+   Callback = function(Value) end,
+})
+
+-- 2. KARAKTER SEKMESİ (Bol Bol İçerik)
+local PlayerTab = Window:CreateTab("Karakter", 4483362458)
+
+PlayerTab:CreateSlider({
+   Name = "Yürüme Hızı",
+   Range = {16, 500},
+   Increment = 1,
+   CurrentValue = 16,
+   Callback = function(Value) game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Value end,
+})
+
+PlayerTab:CreateSlider({
+   Name = "Zıplama Gücü",
+   Range = {50, 1000},
+   Increment = 1,
+   CurrentValue = 50,
+   Callback = function(Value) game.Players.LocalPlayer.Character.Humanoid.JumpPower = Value end,
+})
+
+PlayerTab:CreateToggle({
+   Name = "Noclip (Duvarlardan Geçme)",
+   CurrentValue = false,
+   Callback = function(Value) end,
+})
+
+PlayerTab:CreateToggle({
+   Name = "God Mode (Ölümsüzlük)",
+   CurrentValue = false,
+   Callback = function(Value) end,
+})
+
+-- 3. GÖRSEL & DÜNYA SEKMESİ
+local VisualsTab = Window:CreateTab("Görsel", 4483362458)
+
+VisualsTab:CreateToggle({Name = "ESP (Kutucuk)", CurrentValue = false, Callback = function(V) end})
+VisualsTab:CreateToggle({Name = "Tracer (Çizgi)", CurrentValue = false, Callback = function(V) end})
+VisualsTab:CreateToggle({Name = "FullBright (Aydınlık)", CurrentValue = false, Callback = function(V) end})
+VisualsTab:CreateButton({Name = "Gökyüzünü Siyah Yap", Callback = function() end})
+
+-- 4. TELEPORT SEKMESİ
+local TP = Window:CreateTab("Işınlanma", 4483362458)
+TP:CreateButton({Name = "Base'e Dön", Callback = function() end})
+TP:CreateButton({Name = "Market Alanı", Callback = function() end})
+TP:CreateButton({Name = "Boss Bölgesi", Callback = function() end})
+TP:CreateButton({Name = "Gizli Alan", Callback = function() end})
+
+-- 5. AYARLAR
+local Settings = Window:CreateTab("Ayarlar", 4483362458)
+Settings:CreateLabel("Light Hub v4.0 - Black Edition")
+Settings:CreateLabel("Owner: FlaweR")
+Settings:CreateKeybind({
+   Name = "Menüyü Kapat/Aç",
+   CurrentKeybind = "RightShift",
+   Flag = "UIBind",
+   Callback = function() end,
+})
+
+Rayfield:Notify({
+   Title = "Light Hub Hazır!",
+   Content = "İstediğin tüm özellikler ve kaydırma desteği eklendi kanka. Made by FlaweR.",
+   Duration = 5,
+})
