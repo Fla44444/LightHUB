@@ -1,105 +1,124 @@
-local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
 
-local Window = Rayfield:CreateWindow({
-   Name = "Light Hub | Steal a Brainrot",
-   LoadingTitle = "Light Hub",
-   LoadingSubtitle = "Made by FlaweR",
-   ConfigurationSaving = {
-      Enabled = false
-   },
-   Discord = {
-      Enabled = false -- Gereksiz her şeyi kapattık
-   },
-   KeySystem = false
+-- Menü Penceresi (Açılış animasyonu yoktur, direkt gelir)
+local Window = OrionLib:MakeWindow({
+    Name = "Light Hub | Made by FlaweR", 
+    HidePremium = true, 
+    SaveConfig = true, 
+    ConfigFolder = "LightHubFlaweR",
+    IntroEnabled = false -- İŞTE BU: Açılış animasyonunu tamamen kapatır!
 })
 
--- OTOMASYON SEKMESİ
-local AutomationTab = Window:CreateTab("Otomasyon", 4483362458)
-
-AutomationTab:CreateToggle({
-   Name = "Otomatik Brainrot Çalma",
-   CurrentValue = false,
-   Flag = "AutoSteal",
-   Callback = function(Value) _G.AutoSteal = Value end,
+-- 1. OTOMASYON SEKMESİ (Kaydırılabilir)
+local AutomationTab = Window:MakeTab({
+	Name = "Otomasyon",
+	Icon = "rbxassetid://4483362458",
+	PremiumOnly = false
 })
 
-AutomationTab:CreateToggle({
-   Name = "Otomatik Brainrot Buy",
-   CurrentValue = false,
-   Flag = "AutoBuy",
-   Callback = function(Value) _G.AutoBuy = Value end,
+AutomationTab:AddToggle({
+	Name = "Otomatik Brainrot Çalma",
+	Default = false,
+	Callback = function(Value) _G.AutoSteal = Value end    
 })
 
-AutomationTab:CreateDropdown({
-   Name = "Brainrot Listesi (Ana)",
-   Options = {"Dragon Cannelloni", "Skibidi", "Grimace", "Fanum Tax", "Rizzler"},
-   CurrentOption = {"Dragon Cannelloni"},
-   Flag = "BrainList1",
-   Callback = function(Option) end,
+AutomationTab:AddToggle({
+	Name = "Otomatik Brainrot Buy",
+	Default = false,
+	Callback = function(Value) _G.AutoBuy = Value end    
 })
 
-AutomationTab:CreateToggle({
-   Name = "Otomatik Çalma (Seçili Olanı)",
-   CurrentValue = false,
-   Flag = "AutoStealSpec",
-   Callback = function(Value) end,
+AutomationTab:AddDropdown({
+	Name = "Brainrot Listesi (Ana)",
+	Default = "Dragon Cannelloni",
+	Options = {"Dragon Cannelloni", "Skibidi", "Grimace", "Fanum Tax", "Rizzler"},
+	Callback = function(Value) print("Seçilen: " .. Value) end    
 })
 
-AutomationTab:CreateDropdown({
-   Name = "Brainrot Listesi (Alt Filtre)",
-   Options = {"Dragon Cannelloni", "Ice Cream", "Gwenchana", "Bing Chilling", "Mewing"},
-   CurrentOption = {"Dragon Cannelloni"},
-   Flag = "BrainList2",
-   Callback = function(Option) end,
+AutomationTab:AddToggle({
+	Name = "Otomatik Çalma (Seçili Olanı)",
+	Default = false,
+	Callback = function(Value) end    
 })
 
-AutomationTab:CreateToggle({
-   Name = "Fake Admin Panel",
-   CurrentValue = false,
-   Flag = "FakeAdmin",
-   Callback = function(Value) end,
+AutomationTab:AddDropdown({
+	Name = "Brainrot Listesi (Alt Filtre)",
+	Default = "Dragon Cannelloni",
+	Options = {"Dragon Cannelloni", "Ice Cream", "Gwenchana", "Bing Chilling", "Mewing"},
+	Callback = function(Value) end    
 })
 
-AutomationTab:CreateToggle({
-   Name = "Server Lag (Fake)",
-   CurrentValue = false,
-   Flag = "ServerLag",
-   Callback = function(Value) end,
+AutomationTab:AddToggle({
+	Name = "Fake Admin Panel",
+	Default = false,
+	Callback = function(Value)
+        if Value then
+            OrionLib:MakeNotification({
+                Name = "Admin",
+                Content = "FlaweR Yetkileri Aktif Edildi!",
+                Time = 3
+            })
+        end
+    end    
 })
 
-AutomationTab:CreateToggle({
-   Name = "Otomatik Base Kitleme",
-   CurrentValue = false,
-   Flag = "BaseLock",
-   Callback = function(Value) end,
+AutomationTab:AddToggle({
+	Name = "Server Lag (Fake)",
+	Default = false,
+	Callback = function(Value) end    
 })
 
--- KARAKTER & DİĞER SEKMELER (Dolu olması için)
-local PlayerTab = Window:CreateTab("Karakter", 4483362458)
-PlayerTab:CreateSlider({
-   Name = "Hız",
-   Range = {16, 500},
-   Increment = 1,
-   CurrentValue = 16,
-   Callback = function(Value) game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Value end,
+AutomationTab:AddToggle({
+	Name = "Otomatik Base Kitleme",
+	Default = false,
+	Callback = function(Value) end    
 })
 
-local VisualsTab = Window:CreateTab("Görsel", 4483362458)
-VisualsTab:CreateToggle({Name = "FullBright", CurrentValue = false, Callback = function(V) end})
-
-local Settings = Window:CreateTab("Ayarlar", 4483362458)
-Settings:CreateLabel("Owner: FlaweR")
-Settings:CreateKeybind({
-   Name = "Menü Kapat/Aç",
-   CurrentKeybind = "RightShift",
-   Flag = "UIBind",
-   Callback = function() end,
+-- 2. KARAKTER SEKMESİ
+local PlayerTab = Window:MakeTab({
+	Name = "Karakter",
+	Icon = "rbxassetid://4483362458",
+	PremiumOnly = false
 })
 
--- O sağ alttaki Rayfield yazısını unutturacak şık bir açılış mesajı
-Rayfield:Notify({
-   Title = "Sistem Hazır",
-   Content = "Light Hub | Developed by FlaweR",
-   Duration = 3,
-   Image = 4483362458,
+PlayerTab:AddSlider({
+	Name = "Yürüme Hızı",
+	Min = 16,
+	Max = 500,
+	Default = 16,
+	Color = Color3.fromRGB(255,255,255),
+	Increment = 1,
+	ValueName = "Hız",
+	Callback = function(Value) game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Value end    
 })
+
+PlayerTab:AddToggle({
+	Name = "Infinite Jump",
+	Default = false,
+	Callback = function(Value) _G.InfJump = Value end
+})
+
+-- 3. GÖRSEL SEKMESİ
+local VisualsTab = Window:MakeTab({
+	Name = "Görsel",
+	Icon = "rbxassetid://4483362458",
+	PremiumOnly = false
+})
+
+VisualsTab:AddToggle({Name = "FullBright", Default = false, Callback = function(V) end})
+
+-- 4. AYARLAR
+local SettingsTab = Window:MakeTab({
+	Name = "Ayarlar",
+	Icon = "rbxassetid://4483362458",
+	PremiumOnly = false
+})
+
+SettingsTab:AddLabel("Made by FlaweR")
+
+SettingsTab:AddButton({
+	Name = "Menüyü Kapat",
+	Callback = function() OrionLib:Destroy() end
+})
+
+OrionLib:Init()
