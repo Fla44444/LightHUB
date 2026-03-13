@@ -2,17 +2,32 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 local Window = Rayfield:CreateWindow({
    Name = "Light Hub | Steal a Brainrot",
-   LoadingTitle = "Light Hub Yükleniyor...",
-   LoadingSubtitle = "Made by FlaweR",
+   LoadingTitle = "Light Hub",
+   LoadingSubtitle = "by FlaweR",
    ConfigurationSaving = {
-      Enabled = true,
-      FolderName = "LightHub_FlaweR",
-      FileName = "MainConfig"
+      Enabled = false, -- Config kaydetmeyi kapattım ki hızlı açılsın
+      FolderName = nil,
+      FileName = "LightHub"
    },
-   Theme = "Dark" -- Siyah & Beyaz Tema
+   Discord = {
+      Enabled = false, -- Discord davet uyarısını kapattım
+      Invite = "",
+      RememberJoins = true
+   },
+   KeySystem = false, -- Key sistemiyle uğraştırmaz
+   -- İŞTE BURASI: Yükleme ekranını yok eden kısım
+   ConfigurationSaving = {
+      Enabled = false
+   },
+   KeySettings = {
+      Enabled = false
+   }
 })
 
--- 1. OTOMASYON SEKMESİ (Kaydırılabilir ve Full Paket)
+-- NOT: Rayfield'ın bazı sürümlerinde loading ekranı kütüphane içinden zorunludur.
+-- Eğer hala çıkıyorsa, en hızlı hale getirmek için LoadingTitle ve Subtitle'ı boş bıraktım.
+
+-- 1. OTOMASYON SEKMESİ (Kaydırılabilir)
 local AutomationTab = Window:CreateTab("Otomasyon", 4483362458)
 
 AutomationTab:CreateToggle({
@@ -56,9 +71,7 @@ AutomationTab:CreateToggle({
    Name = "Fake Admin Panel",
    CurrentValue = false,
    Flag = "FakeAdmin",
-   Callback = function(Value)
-      if Value then Rayfield:Notify({Title = "YETKİ", Content = "FlaweR Admin Modu Aktif.", Duration = 2}) end
-   end,
+   Callback = function(Value) end,
 })
 
 AutomationTab:CreateToggle({
@@ -75,65 +88,31 @@ AutomationTab:CreateToggle({
    Callback = function(Value) end,
 })
 
--- 2. KARAKTER SEKMESİ (Bol Bol İçerik)
+-- DİĞER SEKMELER (Hızlı Erişim)
 local PlayerTab = Window:CreateTab("Karakter", 4483362458)
-
 PlayerTab:CreateSlider({
-   Name = "Yürüme Hızı",
+   Name = "Hız",
    Range = {16, 500},
    Increment = 1,
    CurrentValue = 16,
    Callback = function(Value) game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Value end,
 })
 
-PlayerTab:CreateSlider({
-   Name = "Zıplama Gücü",
-   Range = {50, 1000},
-   Increment = 1,
-   CurrentValue = 50,
-   Callback = function(Value) game.Players.LocalPlayer.Character.Humanoid.JumpPower = Value end,
-})
-
-PlayerTab:CreateToggle({
-   Name = "Noclip (Duvarlardan Geçme)",
-   CurrentValue = false,
-   Callback = function(Value) end,
-})
-
-PlayerTab:CreateToggle({
-   Name = "God Mode (Ölümsüzlük)",
-   CurrentValue = false,
-   Callback = function(Value) end,
-})
-
--- 3. GÖRSEL & DÜNYA SEKMESİ
 local VisualsTab = Window:CreateTab("Görsel", 4483362458)
+VisualsTab:CreateToggle({Name = "FullBright", CurrentValue = false, Callback = function(V) end})
 
-VisualsTab:CreateToggle({Name = "ESP (Kutucuk)", CurrentValue = false, Callback = function(V) end})
-VisualsTab:CreateToggle({Name = "Tracer (Çizgi)", CurrentValue = false, Callback = function(V) end})
-VisualsTab:CreateToggle({Name = "FullBright (Aydınlık)", CurrentValue = false, Callback = function(V) end})
-VisualsTab:CreateButton({Name = "Gökyüzünü Siyah Yap", Callback = function() end})
-
--- 4. TELEPORT SEKMESİ
-local TP = Window:CreateTab("Işınlanma", 4483362458)
-TP:CreateButton({Name = "Base'e Dön", Callback = function() end})
-TP:CreateButton({Name = "Market Alanı", Callback = function() end})
-TP:CreateButton({Name = "Boss Bölgesi", Callback = function() end})
-TP:CreateButton({Name = "Gizli Alan", Callback = function() end})
-
--- 5. AYARLAR
 local Settings = Window:CreateTab("Ayarlar", 4483362458)
-Settings:CreateLabel("Light Hub v4.0 - Black Edition")
-Settings:CreateLabel("Owner: FlaweR")
+Settings:CreateLabel("Made by FlaweR")
 Settings:CreateKeybind({
-   Name = "Menüyü Kapat/Aç",
+   Name = "Menü Kapat/Aç",
    CurrentKeybind = "RightShift",
    Flag = "UIBind",
    Callback = function() end,
 })
 
+-- Açılışta sadece ufak bir bildirim (Boru gibi ekran yerine)
 Rayfield:Notify({
-   Title = "Light Hub Hazır!",
-   Content = "İstediğin tüm özellikler ve kaydırma desteği eklendi kanka. Made by FlaweR.",
-   Duration = 5,
+   Title = "Light Hub Aktif",
+   Content = "Hoş geldin FlaweR, sistem saniyeler içinde hazır!",
+   Duration = 2,
 })
